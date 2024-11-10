@@ -1,0 +1,57 @@
+[project]
+name = "social_integrator"
+version = "0.1.0"
+description = "Social media platform integration library"
+authors = [
+    {name = "DevOpsX Team", email = "devopsx@example.com"},
+]
+dependencies = [
+    "aiohttp>=3.9.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "pytest-timeout>=2.2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+timeout = 30
+addopts = "--asyncio-mode=auto"
+
+markers = [
+    "slow: marks tests as slow running (longer timeout)",
+    "timing_sensitive: marks tests that are sensitive to timing"
+]
+
+# Category-specific timeouts
+timeout_slow = 60
+timeout_timing = 10
+
+[tool.pytest-asyncio]
+asyncio_mode = "auto"
+fail_on_loop_close_error = false
+shutdown_asyncgens = true
+forbid_global_loop = false
+
+[tool.coverage.run]
+source = ["social_integrator"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+]
